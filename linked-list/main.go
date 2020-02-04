@@ -22,6 +22,7 @@ func main() {
 	l.length()
 	l.traverseList()
 	l.remove(12)
+	l.reverse()
 	l.traverseList()
 	l.length()
 	l.clear()
@@ -119,9 +120,14 @@ func (l *linkedList) reverse() {
 		return
 	}
 	current := l.node
-	nullPter := &node{}
-	for current.next != nil {
-		current.next = nullPter
+	var previous *node
+	preceding := current.next
+	for preceding != nil {
+		current.next = previous
+		previous = current
+		current = preceding
+		preceding = preceding.next
 	}
+	current.next = previous
 	l.node = current
 }
